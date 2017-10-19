@@ -40,7 +40,11 @@ export default {
         patch: basicController.entity.update(updateParams(permissions.edit)),
         delete: basicController.entity.delete(restParams(permissions.delete)),
         download: {
-            get: NOT_IMPLEMENTED
+            //TODO:  Make login requirement optional
+            //TODO:  Decode file data and send back with proper headers
+            get: basicController.entity.view(o(restParams(permissions.view)).merge({
+                    processResults: file => file.data
+                }).raw)
         }
     }
 };
