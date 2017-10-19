@@ -6,6 +6,7 @@ import {basicController, NOT_IMPLEMENTED} from 'atp-rest';
 import {createCrudPermissions} from "atp-rest-uac";
 import File from "../model/file";
 import {o} from 'atp-sugar';
+import base64 from 'base-64';
 
 const permissions = createCrudPermissions('media', 'file');
 
@@ -40,11 +41,13 @@ export default {
         patch: basicController.entity.update(updateParams(permissions.edit)),
         delete: basicController.entity.delete(restParams(permissions.delete)),
         download: {
-            //TODO:  Make login requirement optional
-            //TODO:  Decode file data and send back with proper headers
+            //TODO:  Add support for resizing and cropping
             get: basicController.entity.view(o(restParams(permissions.view)).merge({
-                    processResults: file => file.data
-                }).raw)
+                    processResults: file => base64.decode(file.data),
+                    raw: true,
+                    contentType: file => file.mime
+                }).raw
+            )
         }
     }
 };
