@@ -27,11 +27,12 @@
   "author": "Andrew Wittrock",
   "license": "MIT",
   "dependencies": {
-    "atp-active-record": "^0.9.1",
-    "atp-config": "^0.3.2",
-    "atp-rest": "^0.17.1",
-    "atp-rest-uac": "^0.23.3",
-    "atp-sugar": "^0.8.2",
+    "atp-active-record": "^0.9.3",
+    "atp-config": "^0.3.3",
+    "atp-pointfree": "^0.4.0",
+    "atp-rest": "^0.18.0",
+    "atp-rest-uac": "^0.23.5",
+    "atp-sugar": "^0.8.3",
     "aws-sdk": "^2.161.0",
     "base-64": "^0.1.0",
     "sharp": "^0.18.4"
