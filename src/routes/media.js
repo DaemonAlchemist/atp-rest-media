@@ -8,20 +8,37 @@ import File from "../model/file";
 import {o} from 'atp-sugar';
 import base64 from 'base-64';
 import sharp from 'sharp';
+import {remove, map} from 'atp-pointfree';
+import config from 'atp-config';
+import AWS from 'aws-sdk';
 
 const model = File;
 const permissions = createCrudPermissions('media', 'file');
 const idField = 'fileId';
 
-export default o(basicController.entity.crud({model, permissions, idField})).merge({
-    get: basicController.entity.collection({
-        model,
-        permission: permissions.view,
-        processResults: files => files.map(file => o(file).delete('data').raw)
-    }),
+export default o(basicController.entity.crud({
+    model, permissions, idField,
+    preInsert: file => new Promise((resolve, reject) => {
+        const awsConfig = config.get('media.aws');
+        AWS.config.update({region: awsConfig.region})
+        const s3 = new AWS.S3({params: {Bucket: awsConfig.bucket}});
+        s3.upload({
+            Key: awsConfig.folder + "/" + file.name,
+            Body: Buffer.from(file.data, 'base64'),
+            ACL: 'public-read',
+        }, (err, data) => {
+            if(err) {
+                reject(err.message)
+            } else {
+                delete file.data;
+                file.url = `https://s3.amazonaws.com/${awsConfig.bucket}/${awsConfig.folder}/${file.name}`;
+                resolve(file);
+            }
+        });
+    })
+})).merge({
     [':' + idField]: {
         download: {
-            //TODO:  Add support for resizing and cropping
             get: basicController.entity.view({
                 model,
                 permission: permissions.view,
