@@ -31,7 +31,7 @@ export default o(basicController.entity.crud({
                 reject(err.message)
             } else {
                 delete file.data;
-                file.url = `https://s3.amazonaws.com/${awsConfig.bucket}/${awsConfig.folder}/${file.name}`;
+                file.url = `https://${awsConfig.staticHost}/${awsConfig.bucket}/${awsConfig.folder}/${file.name}`;
                 resolve(file);
             }
         });
