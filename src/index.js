@@ -3,6 +3,7 @@
  */
 
 import mediaRoutes from './routes/media';
+import File from './model/file';
 
 //import validators from "./validators/index";
 
@@ -14,3 +15,5 @@ export default ({
         //validators
     }
 });
+
+export {File};
