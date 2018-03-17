@@ -1,6 +1,6 @@
 {
   "name": "atp-rest-media",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "Media REST endpoints",
   "main": "lib/index.js",
   "scripts": {
