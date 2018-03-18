@@ -33,6 +33,10 @@ export const s3 = () => {
             })
         }),
         deleteObjects: objects => new Promise((resolve, reject) => {
+            if(objects.length === 0) {
+                resolve();
+                return;
+            }
             _s3.deleteObjects({
                 Delete: {Objects: objects.map(({Key}) => ({Key}))}
             }, (err, data) => {

@@ -30,7 +30,7 @@
     "atp-active-record": "^0.11.5",
     "atp-config": "^0.3.5",
     "atp-pointfree": "^0.9.0",
-    "atp-rest": "^0.23.1",
+    "atp-rest": "^0.23.2",
     "atp-rest-uac": "^0.25.3",
     "atp-validator": "^0.12.1",
     "aws-sdk": "^2.211.0",
