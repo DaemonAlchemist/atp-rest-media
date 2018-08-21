@@ -3,7 +3,7 @@
  */
 
 import {Entity} from 'atp-active-record';
-import {remove} from "atp-pointfree";
+import {filterOnTags} from 'atp-rest-tag';
 
 export default class File extends Entity
 {
@@ -12,17 +12,6 @@ export default class File extends Entity
     }
 
     filter(filters) {
-        const tags = [].concat(filters.tag || []);
-        filters = remove("tag")(filters);
-        console.log("Media filters: ");
-        console.log(filters);
-        console.log("Media tags");
-        console.log(tags);
-
-        if(tags.length > 0) {
-            this.where(`id in (select entityId from atptag_entity_tag_compiled where entityType="mediaFile" and tag in (${tags.map(tag => `"${tag}"`).join(",")}))`);
-        }
-
-        return super.filter(filters);
+        return super.filter(filterOnTags(this, filters, 'mediaFile'));
     }
 }
