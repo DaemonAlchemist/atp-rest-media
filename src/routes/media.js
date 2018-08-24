@@ -13,10 +13,10 @@ const idField = 'fileId';
 const uploadFile = file => {
     file.s3Prefix = randomstring.generate({length: 8, readable: true});
     const fileNameFull = file.s3Prefix + " - " + file.fileName + "." + file.fileExtension;
-    return s3().upload(fileNameFull, file.data).then(() => {
+    return file.data ? s3().upload(fileNameFull, file.data).then(() => {
         delete file.data;
         return file;
-    });
+    }) : Promise.resolve(file);
 }
 
 const deleteS3Files = id => new model().getById(id)
