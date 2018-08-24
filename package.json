@@ -31,10 +31,10 @@
     "atp-config": "^0.3.6",
     "atp-pointfree": "^0.11.5",
     "atp-rest": "^0.24.0",
-    "atp-rest-tag": "^0.2.2",
+    "atp-rest-tag": "^0.3.0",
     "atp-rest-uac": "^0.25.4",
     "atp-validator": "^0.12.1",
-    "aws-sdk": "^2.298.0",
+    "aws-sdk": "^2.300.0",
     "randomstring": "^1.1.5"
   },
   "devDependencies": {
